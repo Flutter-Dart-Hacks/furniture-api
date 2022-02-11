@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 // Fetch our Categories from API
-fetchCategories() async {
+Future<List<Category>> fetchCategories() async {
   const String apiUrl =
       'https://5f210aa9daa42f001666535e.mockapi.io/api/categories';
 
