@@ -61,21 +61,29 @@ class CategoriesItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        Category category = categories[index];
+        return CategoryCard(categoryItem: category);
+      },
+      itemCount: categories.length,
       scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(
-          categories.length,
-          (index) {
-            return CategoryCard(categoryItem: categories[index]);
-          },
-        ),
-        // children: [
-        //   CategoryCard(
-        //     categoryItem: category,
-        //   ),
-        // ],
-      ),
     );
+    // return SingleChildScrollView(
+    //   scrollDirection: Axis.horizontal,
+    //   child: Row(
+    //     children: List.generate(
+    //       categories.length,
+    //       (index) {
+    //         return CategoryCard(categoryItem: categories[index]);
+    //       },
+    //     ),
+    //     // children: [
+    //     //   CategoryCard(
+    //     //     categoryItem: category,
+    //     //   ),
+    //     // ],
+    //   ),
+    // );
   }
 }
