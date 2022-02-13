@@ -33,13 +33,16 @@ class HomeBody extends StatelessWidget {
                   if (snapshot.hasData) {
                     // Menggunakan null safety
                     // https://dart.dev/null-safety/understanding-null-safety#unnecessary-code-warnings
-                    return CategoriesItem(
+                    return CategoriesList(
                       categories: snapshot.data ?? List.empty(),
                     );
                   } else if (snapshot.hasError) {
                     return const Text('Error fetch data');
                   } else {
-                    return const CircularProgressIndicator();
+                    // return const CircularProgressIndicator();
+                    return Center(
+                      child: Image.asset('assets/ripple.gif'),
+                    );
                   }
                 }),
               )
@@ -51,8 +54,8 @@ class HomeBody extends StatelessWidget {
   }
 }
 
-class CategoriesItem extends StatelessWidget {
-  const CategoriesItem({
+class CategoriesList extends StatelessWidget {
+  const CategoriesList({
     Key? key,
     required this.categories,
   }) : super(key: key);
