@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furnitureapi/components/title_text.dart';
-import 'package:furnitureapi/constants.dart';
 import 'package:furnitureapi/models/categories.dart';
-import 'package:furnitureapi/screens/components/category_card.dart';
+import 'package:furnitureapi/screens/components/category_list.dart';
 import 'package:furnitureapi/services/fetch_category.dart';
 import 'package:furnitureapi/size_config.dart';
 
@@ -45,47 +44,17 @@ class HomeBody extends StatelessWidget {
                     );
                   }
                 }),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 8, right: 8),
+                child: Divider(
+                  height: 5,
+                ),
               )
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class CategoriesList extends StatelessWidget {
-  const CategoriesList({
-    Key? key,
-    required this.categories,
-  }) : super(key: key);
-
-  final List<Category> categories;
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(
-          categories.length,
-          (index) {
-            return CategoryCard(categoryItem: categories[index]);
-          },
-        ),
-      ),
-    );
-  }
-
-  // Alternatif menggunakan Listview
-  ListView createListCard() {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        Category category = categories[index];
-        return CategoryCard(categoryItem: category);
-      },
-      itemCount: categories.length,
-      scrollDirection: Axis.horizontal,
     );
   }
 }
