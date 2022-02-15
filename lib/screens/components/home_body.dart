@@ -36,7 +36,8 @@ class HomeBody extends StatelessWidget {
                       categories: snapshot.data ?? List.empty(),
                     );
                   } else if (snapshot.hasError) {
-                    return const Text('Error fetch data');
+                    // return const Text('Error fetch data');
+                    return CategoriesList(categories: List.empty());
                   } else {
                     // return const CircularProgressIndicator();
                     return Center(
@@ -50,7 +51,11 @@ class HomeBody extends StatelessWidget {
                 child: Divider(
                   height: 5,
                 ),
-              )
+              ),
+              Padding(
+                padding: EdgeInsets.all(defaultSize * 2),
+                child: const TitleText(titleText: 'Recommends For You'),
+              ),
             ],
           ),
         ),
