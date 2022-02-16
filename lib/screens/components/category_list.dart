@@ -13,21 +13,23 @@ class CategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (categories.isNotEmpty) {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: List.generate(
-            categories.length,
-            (index) {
-              return CategoryCard(categoryItem: categories[index]);
-            },
+      return Scrollbar(
+        trackVisibility: false,
+        isAlwaysShown: false,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(
+              categories.length,
+              (index) {
+                return CategoryCard(categoryItem: categories[index]);
+              },
+            ),
           ),
         ),
       );
     } else {
-      return Container(
-        child: createMockListcard(),
-      );
+      return createMockGenerateList();
     }
   }
 
@@ -43,16 +45,39 @@ class CategoriesList extends StatelessWidget {
     );
   }
 
-  ListView createMockListcard() {
+  Widget createMockListcard() {
     List<Category> listCategoryMock = [category, category, category];
 
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        Category categorydata = listCategoryMock[index];
-        return CategoryCard(categoryItem: categorydata);
-      },
-      itemCount: listCategoryMock.length,
-      scrollDirection: Axis.horizontal,
+    return Container(
+      padding: const EdgeInsets.only(left: 10),
+      child: ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          Category categorydata = listCategoryMock[index];
+          return CategoryCard(categoryItem: categorydata);
+        },
+        itemCount: listCategoryMock.length,
+        scrollDirection: Axis.vertical,
+      ),
+    );
+  }
+
+  Widget createMockGenerateList() {
+    List<Category> listCategoryMock = [category, category, category];
+
+    return Scrollbar(
+      trackVisibility: false,
+      isAlwaysShown: false,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: List.generate(
+            listCategoryMock.length,
+            (index) {
+              return CategoryCard(categoryItem: listCategoryMock[index]);
+            },
+          ),
+        ),
+      ),
     );
   }
 }
