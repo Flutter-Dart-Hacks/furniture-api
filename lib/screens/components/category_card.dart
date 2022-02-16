@@ -31,22 +31,32 @@ class CategoryCard extends StatelessWidget {
                 child: AspectRatio(
                   aspectRatio: 1.025,
                   child: Container(
-                    padding: EdgeInsets.all(defaultSize * 2),
                     color: kSecondaryColor,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TitleText(titleText: categoryItem.title),
-                        SizedBox(
-                          height: defaultSize,
-                        ),
-                        Text(
-                          '${categoryItem.numOfProducts}+ Products',
-                          style: TextStyle(
-                            color: kTextColor.withOpacity(0.6),
+                    child: Material(
+                      color: Colors.white.withOpacity(0),
+                      child: InkWell(
+                        onTap: () {
+                          print('Ripple category');
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(defaultSize * 2),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TitleText(titleText: categoryItem.title),
+                              SizedBox(
+                                height: defaultSize,
+                              ),
+                              Text(
+                                '${categoryItem.numOfProducts}+ Products',
+                                style: TextStyle(
+                                  color: kTextColor.withOpacity(0.6),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
