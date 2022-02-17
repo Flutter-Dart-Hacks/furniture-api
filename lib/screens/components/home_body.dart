@@ -5,6 +5,7 @@ import 'package:furnitureapi/models/categories.dart';
 import 'package:furnitureapi/models/product.dart';
 import 'package:furnitureapi/screens/components/category_card.dart';
 import 'package:furnitureapi/screens/components/category_list.dart';
+import 'package:furnitureapi/screens/components/product_card_alt.dart';
 import 'package:furnitureapi/services/fetch_category.dart';
 import 'package:furnitureapi/size_config.dart';
 
@@ -74,30 +75,23 @@ class HomeBody extends StatelessWidget {
                 ),
                 child: const TitleText(titleText: 'Recommends to Buy'),
               ),
-              ProductCard(
-                productData: product,
-                pressCallback: () {
-                  print("Wow! Ripple");
-                },
-              ),
-              Visibility(
-                visible: false,
-                child: Container(
-                  // https://stackoverflow.com/questions/56131101/how-to-place-a-listview-inside-a-singlechildscrollview-but-prevent-them-from-scr/56137112
-                  padding: const EdgeInsets.only(top: 5),
-                  child: ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      Category categorydata = listCategoryMock[index];
-                      return CategoryCard(categoryItem: categorydata);
-                    },
-                    itemCount: listCategoryMock.length,
-                    scrollDirection: Axis.vertical,
-                    primary: false,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: GridView.count(
+                  // Create a grid with 2 columns. If you change the scrollDirection to
+                  // horizontal, this produces 2 rows.
+                  crossAxisCount: 2,
+                  // Generate 100 widgets that display their index in the List.
+                  children: List.generate(100, (index) {
+                    return Center(
+                      child: Text(
+                        'Item $index',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    );
+                  }),
                 ),
-              ),
+              )
             ],
           ),
         ),
@@ -106,63 +100,31 @@ class HomeBody extends StatelessWidget {
   }
 }
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
+class ListWidgetCategoryCard extends StatelessWidget {
+  const ListWidgetCategoryCard({
     Key? key,
-    required this.productData,
-    required this.pressCallback,
+    required this.listCategoryMock,
   }) : super(key: key);
 
-  final Product productData;
-
-  // Function dan callback
-  // https://www.digitalocean.com/community/tutorials/flutter-widget-communication
-  final Function pressCallback;
-  // final VoidCallback presscb;
+  final List<Category> listCategoryMock;
 
   @override
   Widget build(BuildContext context) {
-    double defaultSize = SizeConfig.defaultSize;
-
-    return Container(
-      width: defaultSize * 14.5,
-      decoration: BoxDecoration(
-        color: kSecondaryColor,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: AspectRatio(
-        aspectRatio: 0.693,
-        // Ripple effect
-        // https://flutteragency.com/inkwell-not-showing-ripple-effect-in-flutter/
-        child: Material(
-          color: Colors.white.withOpacity(0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(30),
-            onTap: () {
-              pressCallback();
-            },
-            child: Column(
-              children: <Widget>[
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/spinner.gif',
-                    image: product.image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: defaultSize,
-                  ),
-                  child: TitleText(titleText: product.title),
-                ),
-                SizedBox(height: defaultSize / 2),
-                Text("\$${product.price}"),
-                const Spacer(),
-              ],
-            ),
-          ),
+    return Visibility(
+      visible: false,
+      child: Container(
+        // https://stackoverflow.com/questions/56131101/how-to-place-a-listview-inside-a-singlechildscrollview-but-prevent-them-from-scr/56137112
+        padding: const EdgeInsets.only(top: 5),
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            Category categorydata = listCategoryMock[index];
+            return CategoryCard(categoryItem: categorydata);
+          },
+          itemCount: listCategoryMock.length,
+          scrollDirection: Axis.vertical,
+          primary: false,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
         ),
       ),
     );
