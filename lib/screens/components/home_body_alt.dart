@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:furnitureapi/components/title_text.dart';
-import 'package:furnitureapi/constants.dart';
 import 'package:furnitureapi/models/categories.dart';
 import 'package:furnitureapi/models/product.dart';
 import 'package:furnitureapi/screens/components/category_card.dart';
@@ -15,12 +14,11 @@ class HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double defaultSize = SizeConfig.defaultSize;
-    List<Category> listCategoryMock = [category, category, category];
 
     return SafeArea(
       child: Scrollbar(
-        showTrackOnHover: true,
         isAlwaysShown: false,
+        scrollbarOrientation: ScrollbarOrientation.right,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,15 +87,35 @@ class HomeBody extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     return ProductCard(
-                      productData: product,
-                      pressCallback: () {},
-                    );
+                        productData: product, pressCallback: () {});
                   },
                 ),
               )
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Padding createListGridsOk(double defaultSize) {
+    return Padding(
+      padding: EdgeInsets.all(defaultSize * 2), //20
+      child: GridView.builder(
+        // We just turn off grid view scrolling
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        // just for demo
+        itemCount: 3,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount:
+              SizeConfig.orientation == Orientation.portrait ? 2 : 4,
+          mainAxisSpacing: 20,
+          crossAxisSpacing: 20,
+          childAspectRatio: 0.693,
+        ),
+        itemBuilder: (context, index) =>
+            ProductCard(productData: product, pressCallback: () {}),
       ),
     );
   }
@@ -114,7 +132,7 @@ class ListWidgetCategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: false,
+      visible: true,
       child: Container(
         // https://stackoverflow.com/questions/56131101/how-to-place-a-listview-inside-a-singlechildscrollview-but-prevent-them-from-scr/56137112
         padding: const EdgeInsets.only(top: 5),
