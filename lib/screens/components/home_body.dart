@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:furnitureapi/components/title_text.dart';
-import 'package:furnitureapi/constants.dart';
 import 'package:furnitureapi/models/categories.dart';
 import 'package:furnitureapi/models/product.dart';
 import 'package:furnitureapi/screens/components/category_card.dart';
@@ -15,7 +14,6 @@ class HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double defaultSize = SizeConfig.defaultSize;
-    List<Category> listCategoryMock = [category, category, category];
 
     return SafeArea(
       child: Scrollbar(
@@ -75,26 +73,6 @@ class HomeBody extends StatelessWidget {
                 ),
                 child: const TitleText(titleText: 'Recommends to Buy'),
               ),
-              Padding(
-                padding: EdgeInsets.all(defaultSize * 2),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 6,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.693,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                  ),
-                  itemBuilder: (context, index) {
-                    return ProductCard(
-                      productData: product,
-                      pressCallback: () {},
-                    );
-                  },
-                ),
-              )
             ],
           ),
         ),
@@ -103,13 +81,46 @@ class HomeBody extends StatelessWidget {
   }
 }
 
-class ListWidgetCategoryCard extends StatelessWidget {
-  const ListWidgetCategoryCard({
+class RecommendedProduct extends StatelessWidget {
+  const RecommendedProduct({
     Key? key,
-    required this.listCategoryMock,
+    required this.listProduct,
   }) : super(key: key);
 
-  final List<Category> listCategoryMock;
+  final List<Product> listProduct;
+
+  @override
+  Widget build(BuildContext context) {
+    double defaultSize = SizeConfig.defaultSize;
+
+    return Padding(
+      padding: EdgeInsets.all(defaultSize * 2),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 6,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.693,
+          mainAxisSpacing: 20,
+          crossAxisSpacing: 20,
+        ),
+        itemBuilder: (context, index) {
+          return ProductCard(
+            productData: product,
+            pressCallback: () {},
+          );
+        },
+      ),
+    );
+  }
+}
+
+class ListWidgetCategoryCard extends StatelessWidget {
+  ListWidgetCategoryCard({
+    Key? key,
+  }) : super(key: key);
+  final List<Category> listCategoryMock = [category, category, category];
 
   @override
   Widget build(BuildContext context) {

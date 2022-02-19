@@ -12,7 +12,7 @@ Future<List<Product>> fetchProducts() async {
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      List<Product> products = (json.decode(response.body) as List)
+      List<Product> products = (jsonDecode(response.body) as List)
           .map((data) => Product.fromJson(data))
           .toList();
       // Return list of products
@@ -20,7 +20,7 @@ Future<List<Product>> fetchProducts() async {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load');
+      throw Exception('Failed to fetch list product load');
     }
   } catch (err) {
     throw Exception('Failed catch error');
