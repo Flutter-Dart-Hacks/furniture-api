@@ -6,6 +6,7 @@ import 'package:furnitureapi/screens/components/category_card.dart';
 import 'package:furnitureapi/screens/components/category_list.dart';
 import 'package:furnitureapi/screens/components/product_card.dart';
 import 'package:furnitureapi/services/fetch_category.dart';
+import 'package:furnitureapi/services/fetch_products.dart';
 import 'package:furnitureapi/size_config.dart';
 
 class HomeBody extends StatelessWidget {
@@ -31,7 +32,7 @@ class HomeBody extends StatelessWidget {
               ),
               FutureBuilder<List<Category>>(
                 future: fetchCategories(),
-                builder: ((context, snapshot) {
+                builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     // Menggunakan null safety
                     // https://dart.dev/null-safety/understanding-null-safety#unnecessary-code-warnings
@@ -49,7 +50,7 @@ class HomeBody extends StatelessWidget {
                       child: Image.asset('assets/ripple.gif'),
                     );
                   }
-                }),
+                },
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -73,6 +74,21 @@ class HomeBody extends StatelessWidget {
                 ),
                 child: const TitleText(titleText: 'Recommends to Buy'),
               ),
+              FutureBuilder<List<Product>>(
+                future: fetchProducts(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return RecommendedProduct(
+                        listProduct: snapshot.data ?? List.empty());
+                  } else if (snapshot.hasError) {
+                    return RecommendedProduct(listProduct: List.empty());
+                  } else {
+                    return Center(
+                      child: Image.asset('assets/ripple.gif'),
+                    );
+                  }
+                },
+              )
             ],
           ),
         ),
