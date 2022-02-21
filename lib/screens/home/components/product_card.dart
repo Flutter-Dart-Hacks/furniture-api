@@ -45,7 +45,7 @@ class ProductCard extends StatelessWidget {
                   aspectRatio: 1,
                   child: FadeInImage.assetNetwork(
                     placeholder: 'assets/spinner.gif',
-                    image: product.image,
+                    image: productData.image,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -53,10 +53,10 @@ class ProductCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                     horizontal: defaultSize,
                   ),
-                  child: TitleText(titleText: product.title),
+                  child: TitleText(titleText: productData.title),
                 ),
                 SizedBox(height: defaultSize / 2),
-                Text("\$${product.price}"),
+                Text("\$${productData.price}"),
                 const Spacer(),
               ],
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:furnitureapi/constants.dart';
-import 'package:furnitureapi/screens/home_screen.dart';
+import 'package:furnitureapi/screens/home/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {

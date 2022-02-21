@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnitureapi/models/categories.dart';
-import 'package:furnitureapi/screens/components/category_card.dart';
+import 'package:furnitureapi/screens/home/components/category_card.dart';
 
 class CategoriesList extends StatelessWidget {
   const CategoriesList({

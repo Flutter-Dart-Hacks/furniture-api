@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnitureapi/constants.dart';
-import 'package:furnitureapi/screens/components/home_body.dart';
+import 'package:furnitureapi/screens/home/components/home_body.dart';
 import 'package:furnitureapi/size_config.dart';
 
 class HomeScreen extends StatelessWidget {

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:furnitureapi/components/title_text.dart';
 import 'package:furnitureapi/models/categories.dart';
 import 'package:furnitureapi/models/product.dart';
-import 'package:furnitureapi/screens/components/category_card.dart';
-import 'package:furnitureapi/screens/components/category_list.dart';
-import 'package:furnitureapi/screens/components/product_card.dart';
+import 'package:furnitureapi/screens/home/components/category_card.dart';
+import 'package:furnitureapi/screens/home/components/category_list.dart';
+import 'package:furnitureapi/screens/home/components/recommended_product.dart';
 import 'package:furnitureapi/services/fetch_category.dart';
+import 'package:furnitureapi/services/fetch_products.dart';
 import 'package:furnitureapi/size_config.dart';
 
 class HomeBody extends StatelessWidget {
@@ -17,8 +18,8 @@ class HomeBody extends StatelessWidget {
 
     return SafeArea(
       child: Scrollbar(
+        showTrackOnHover: true,
         isAlwaysShown: false,
-        scrollbarOrientation: ScrollbarOrientation.right,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +32,7 @@ class HomeBody extends StatelessWidget {
               ),
               FutureBuilder<List<Category>>(
                 future: fetchCategories(),
-                builder: ((context, snapshot) {
+                builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     // Menggunakan null safety
                     // https://dart.dev/null-safety/understanding-null-safety#unnecessary-code-warnings
@@ -49,7 +50,7 @@ class HomeBody extends StatelessWidget {
                       child: Image.asset('assets/ripple.gif'),
                     );
                   }
-                }),
+                },
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -73,23 +74,20 @@ class HomeBody extends StatelessWidget {
                 ),
                 child: const TitleText(titleText: 'Recommends to Buy'),
               ),
-              Padding(
-                padding: EdgeInsets.all(defaultSize * 2),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 6,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.693,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                  ),
-                  itemBuilder: (context, index) {
-                    return ProductCard(
-                        productData: product, pressCallback: () {});
-                  },
-                ),
+              FutureBuilder<List<Product>>(
+                future: fetchProducts(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return RecommendedProduct(
+                        listProduct: snapshot.data ?? List.empty());
+                  } else if (snapshot.hasError) {
+                    return RecommendedProduct(listProduct: List.empty());
+                  } else {
+                    return Center(
+                      child: Image.asset('assets/ripple.gif'),
+                    );
+                  }
+                },
               )
             ],
           ),
@@ -97,42 +95,18 @@ class HomeBody extends StatelessWidget {
       ),
     );
   }
-
-  Padding createListGridsOk(double defaultSize) {
-    return Padding(
-      padding: EdgeInsets.all(defaultSize * 2), //20
-      child: GridView.builder(
-        // We just turn off grid view scrolling
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        // just for demo
-        itemCount: 3,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount:
-              SizeConfig.orientation == Orientation.portrait ? 2 : 4,
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 20,
-          childAspectRatio: 0.693,
-        ),
-        itemBuilder: (context, index) =>
-            ProductCard(productData: product, pressCallback: () {}),
-      ),
-    );
-  }
 }
 
 class ListWidgetCategoryCard extends StatelessWidget {
-  const ListWidgetCategoryCard({
+  ListWidgetCategoryCard({
     Key? key,
-    required this.listCategoryMock,
   }) : super(key: key);
-
-  final List<Category> listCategoryMock;
+  final List<Category> listCategoryMock = [category, category, category];
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: true,
+      visible: false,
       child: Container(
         // https://stackoverflow.com/questions/56131101/how-to-place-a-listview-inside-a-singlechildscrollview-but-prevent-them-from-scr/56137112
         padding: const EdgeInsets.only(top: 5),
