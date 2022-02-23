@@ -23,7 +23,7 @@ class _DetailScreenState extends State<DetailScreen> {
       child: Scaffold(
         backgroundColor: kSecondaryColor,
         appBar: createAppbar(context),
-        body: DetailBody(productItem: product),
+        body: DetailBody(productItem: widget.product),
       ),
     );
   }
