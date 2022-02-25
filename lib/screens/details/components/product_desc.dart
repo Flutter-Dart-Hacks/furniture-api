@@ -32,49 +32,56 @@ class ProductDescription extends StatelessWidget {
           topRight: Radius.circular(defaultSize * 1.2),
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            productItem.subTitle,
-            style: TextStyle(
-              fontSize: defaultSize * 1.8,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(
-            height: defaultSize * 3,
-          ),
-          Text(
-            productItem.description,
-            style: TextStyle(
-              color: kTextColor.withOpacity(0.7),
-              height: 1.5,
-            ),
-          ),
-          SizedBox(
-            height: defaultSize * 3,
-          ),
-          SizedBox(
-            width: double.infinity,
-            height: defaultSize * 5,
-            child: ElevatedButton(
-              onPressed: callback(),
-              style: ElevatedButton.styleFrom(
-                primary: kPrimaryColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)),
-              ),
-              child: Text(
-                'Add to Cart',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: defaultSize * 1.6),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              productItem.subTitle,
+              style: TextStyle(
+                fontSize: defaultSize * 1.8,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-        ],
+            SizedBox(
+              height: defaultSize * 3,
+            ),
+            Text(
+              productItem.description,
+              style: TextStyle(
+                color: kTextColor.withOpacity(0.7),
+                height: 1.5,
+              ),
+            ),
+            SizedBox(
+              height: defaultSize * 3,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: defaultSize * 5,
+              child: ElevatedButton(
+                onPressed: () {
+                  callback();
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: kPrimaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
+                ),
+                child: Text(
+                  'Add To Cart',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: defaultSize * 1.6),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            )
+          ],
+        ),
       ),
     );
   }

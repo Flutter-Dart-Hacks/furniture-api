@@ -20,68 +20,71 @@ class ProductInfo extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: defaultSize * 2),
       height: defaultSize * 37.5,
-      width: defaultSize * 15,
+      width: defaultSize *
+          (SizeConfig.orientation == Orientation.landscape ? 35 : 15),
       // color: Colors.black45.withOpacity(0.8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            productItem.category.toUpperCase(),
-            style: lightTextStyle,
-          ),
-          SizedBox(
-            height: defaultSize,
-          ),
-          Text(
-            productItem.title,
-            style: TextStyle(
-              fontSize: defaultSize * 2.4,
-              fontWeight: FontWeight.bold,
-              letterSpacing: -0.8,
-              height: 1.4,
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              productItem.category.toUpperCase(),
+              style: lightTextStyle,
             ),
-          ),
-          SizedBox(
-            height: defaultSize * 2,
-          ),
-          Text(
-            'From',
-            style: lightTextStyle,
-          ),
-          Text(
-            '\$${productItem.price}',
-            style: TextStyle(
-              fontSize: defaultSize * 1.6,
-              fontWeight: FontWeight.bold,
-              height: 1.6,
+            SizedBox(
+              height: defaultSize,
             ),
-          ),
-          SizedBox(
-            height: defaultSize * 2,
-          ),
-          Text(
-            'Available Colors',
-            style: lightTextStyle,
-          ),
-          Row(
-            children: [
-              buildColorBox(
-                defaultSize,
-                color: const Color(0xff7ba275),
-                isActive: true,
+            Text(
+              productItem.title,
+              style: TextStyle(
+                fontSize: defaultSize * 2.4,
+                fontWeight: FontWeight.bold,
+                letterSpacing: -0.8,
+                height: 1.4,
               ),
-              buildColorBox(
-                defaultSize,
-                color: const Color(0xffd7d7d7),
+            ),
+            SizedBox(
+              height: defaultSize * 2,
+            ),
+            Text(
+              'From',
+              style: lightTextStyle,
+            ),
+            Text(
+              '\$${productItem.price}',
+              style: TextStyle(
+                fontSize: defaultSize * 1.6,
+                fontWeight: FontWeight.bold,
+                height: 1.6,
               ),
-              buildColorBox(
-                defaultSize,
-                color: kTextColor,
-              ),
-            ],
-          ),
-        ],
+            ),
+            SizedBox(
+              height: defaultSize * 2,
+            ),
+            Text(
+              'Available Colors',
+              style: lightTextStyle,
+            ),
+            Row(
+              children: [
+                buildColorBox(
+                  defaultSize,
+                  color: const Color(0xff7ba275),
+                  isActive: true,
+                ),
+                buildColorBox(
+                  defaultSize,
+                  color: const Color(0xffd7d7d7),
+                ),
+                buildColorBox(
+                  defaultSize,
+                  color: kTextColor,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
