@@ -1,6 +1,7 @@
 # Furniture App - Responsive Flutter UI
 
-Latihan sederhana dari Flutter Way tentang membuat UI dan pengambilan data dengan Fetch API
+Latihan sederhana dari Flutter Way tentang membuat UI dan pengambilan data dengan Fetch API. 
+
 
 ## [Watch it on YouTube](https://youtu.be/8uLI8ade1aA)
 
