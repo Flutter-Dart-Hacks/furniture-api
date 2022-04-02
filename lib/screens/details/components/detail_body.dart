@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:furnitureapi/constants.dart';
 import 'package:furnitureapi/models/product.dart';
 import 'package:furnitureapi/screens/details/components/product_desc.dart';
